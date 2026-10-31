@@ -1,7 +1,9 @@
-import { LATEST_MIGRATION } from "../database/migrations";
-import { createApp } from "./app";
 import { env } from "./config/env";
-import { pool, queryOne } from "./db/pool";
+import mysql from "mysql2/promise";
+import { LATEST_MIGRATION } from "../database/migrations";
+import { prepareDatabase } from "../database/prepare";
+import { createApp } from "./app";
+import { mysqlTimeZoneOffset, pool, queryOne } from "./db/pool";
 import { purgeExpiredSessions } from "./services/auth";
 import { startAutoSync, stopAutoSync } from "./services/biometric";
 import { logger } from "./utils/logger";
@@ -17,6 +19,33 @@ async function main() {
       error: (error as Error).message,
     });
     process.exit(1);
+  }
+
+  // On hosting without a terminal (Hostinger), create/upgrade tables and the first accounts here.
+  if (env.dbAutoSetup) {
+    const conn = await mysql.createConnection({
+      host: env.DB_HOST,
+      port: env.DB_PORT,
+      user: env.DB_USER,
+      password: env.DB_PASSWORD,
+      database: env.DB_NAME,
+      multipleStatements: true, // setup only; request handlers use the pool, which forbids it
+      charset: "utf8mb4",
+    });
+    try {
+      await conn.query(`SET time_zone = '${mysqlTimeZoneOffset()}'`);
+      await prepareDatabase(conn, {
+        database: env.DB_NAME,
+        seed: env.DB_SEED,
+        adminPassword: env.SEED_ADMIN_PASSWORD,
+        staffPassword: env.SEED_STAFF_PASSWORD,
+        log: (message) => logger.info(`[db] ${message}`),
+      });
+    } catch (error) {
+      logger.error("[db] automatic database setup failed", { error: (error as Error).message });
+    } finally {
+      await conn.end();
+    }
   }
 
   // Warn when the database is older than the code.

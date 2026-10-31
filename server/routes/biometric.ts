@@ -20,6 +20,8 @@ import {
   storePunches,
   syncAndProcess,
   unlinkPin,
+  requestAgentSync,
+  agentStatus,
 } from "../services/biometric";
 import { testDevice } from "../services/zkDevice";
 import { eachDate, localDateKey } from "../utils/dates";
@@ -37,13 +39,23 @@ const ipAddress = z
   });
 const port = z.coerce.number().int().min(1).max(65535).default(4370);
 
-biometricRouter.get("/setup", (_req, res) => {
+biometricRouter.get("/setup", async (_req, res) => {
+  const agentMode = env.BIOMETRIC_MODE === "agent";
   res.json({
-    serverAddresses: lanAddresses(),
-    autoSyncMinutes: env.BIOMETRIC_AUTO_SYNC_MINUTES,
+    mode: env.BIOMETRIC_MODE,
+    serverAddresses: agentMode ? [] : lanAddresses(),
+    autoSyncMinutes: env.BIOMETRIC_AUTO_SYNC_MINUTES || (agentMode ? 15 : 0),
     allowList: env.BIOMETRIC_ALLOWED_IPS || "Private office networks (10.x, 172.16–31.x, 192.168.x)",
+    agents: agentMode ? await agentStatus() : [],
   });
 });
+
+/** In agent mode the server cannot reach machines; the office agent does the connecting. */
+function assertDirectMode() {
+  if (env.BIOMETRIC_MODE === "agent") {
+    throw new HttpError(409, "Machines are read by the office agent. Save the machine and click Sync; the agent connects within a minute.");
+  }
+}
 
 // ── Machines ──────────────────────────────────────────────────────
 
@@ -126,6 +138,7 @@ function driftMinutes(deviceTime: string | null) {
 
 /** Test an unsaved machine (from the add/edit form). */
 biometricRouter.post("/devices/test", adminOnly, async (req, res) => {
+  assertDirectMode();
   const input = parse(z.object({ ipAddress, port }), req.body);
   const info = await testDevice({ ipAddress: input.ipAddress, port: input.port });
   res.json({ info, clockDriftMinutes: driftMinutes(info.deviceTime) });
@@ -133,6 +146,7 @@ biometricRouter.post("/devices/test", adminOnly, async (req, res) => {
 
 /** Test a saved machine. */
 biometricRouter.post("/devices/:id/test", async (req, res) => {
+  assertDirectMode();
   const id = parse(idParam, req.params.id);
   const device = await queryOne<{ ip_address: string; port: number }>("SELECT ip_address, port FROM biometric_devices WHERE id = ?", [id]);
   if (!device) throw notFound("Machine not found");
@@ -148,6 +162,13 @@ async function respondSync(req: Request, res: Response, ids?: number[]) {
   if (ids?.length) {
     const device = await queryOne<{ status: string }>("SELECT status FROM biometric_devices WHERE id = ?", [ids[0]]);
     if (!device) throw notFound("Machine not found");
+  }
+  if (env.BIOMETRIC_MODE === "agent") {
+    const queued = await requestAgentSync(ids);
+    if (!queued) throw notFound("No active machine is set up. Add one first.");
+    await audit(req, { action: "device.sync_request", details: { devices: queued } });
+    res.json({ queued, mode: "agent" });
+    return;
   }
   const result = await syncAndProcess(ids);
   if (!result.devices.length) throw notFound("No active machine is set up. Add one first.");

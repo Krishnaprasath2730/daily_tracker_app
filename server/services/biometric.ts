@@ -283,37 +283,68 @@ export async function syncDevice(device: DeviceRow): Promise<SyncResult> {
   syncing.add(device.id);
   const started = Date.now();
   try {
-    const { info, users, punches } = await pullDevice({ id: device.id, ipAddress: device.ip_address, port: device.port });
-    await storeDeviceUsers(users, device.id);
-    const stored = await storePunches(punches, device.id, "device");
-    const drift = info.deviceTime ? Math.round((new Date(info.deviceTime.replace(" ", "T")).getTime() - Date.now()) / 60000) : null;
-    const note = `${stored.inserted} new punch${stored.inserted === 1 ? "" : "es"}, ${users.length} user${users.length === 1 ? "" : "s"}${drift !== null && Math.abs(drift) > 5 ? ` · machine clock off by ${drift} min` : ""}`;
-    await execute(
-      `UPDATE biometric_devices SET last_sync_at = NOW(), last_sync_status = 'OK', last_sync_note = ?, user_count = ?, log_count = ?, log_capacity = ?,
-         last_seen_at = NOW(), total_punches = total_punches + ?,
-         last_punch_at = GREATEST(COALESCE(last_punch_at, '2000-01-01'), COALESCE((SELECT MAX(punch_time) FROM biometric_logs WHERE device_id = ?), '2000-01-01'))
-       WHERE id = ?`,
-      [note, info.userCount, info.logCount, info.logCapacity, stored.inserted, device.id, device.id],
-    );
-    return {
-      deviceId: device.id,
-      name: device.name,
-      ok: true,
-      info,
-      clockDriftMinutes: drift,
-      users: users.length,
-      punchesOnDevice: punches.length,
-      newPunches: stored.inserted,
-      seconds: Math.round((Date.now() - started) / 1000),
-    };
+    const pulled = await pullDevice({ id: device.id, ipAddress: device.ip_address, port: device.port });
+    return await recordSync(device, pulled, Date.now() - started);
   } catch (error) {
-    const message = String((error as Error)?.message || "Sync failed").slice(0, 255);
-    await execute("UPDATE biometric_devices SET last_sync_at = NOW(), last_sync_status = 'FAILED', last_sync_note = ? WHERE id = ?", [message, device.id]);
-    return { deviceId: device.id, name: device.name, ok: false, error: message, newPunches: 0 };
+    return recordSyncFailure(device, String((error as Error)?.message || "Sync failed"));
   } finally {
     syncing.delete(device.id);
   }
 }
+
+/** Store what was read from a machine (by this server or by the office agent) and update the device row. */
+export async function recordSync(
+  device: { id: number; name: string },
+  { info, users, punches }: { info: DeviceInfo; users: DeviceUser[]; punches: DevicePunch[] },
+  elapsedMs: number,
+  /** The agent sends large logs in several batches; only the first carries the user list. */
+  totalOnDevice = punches.length,
+): Promise<SyncResult> {
+  if (users.length) await storeDeviceUsers(users, device.id);
+  const stored = await storePunches(punches, device.id, "device");
+  const drift = info.deviceTime ? Math.round((new Date(info.deviceTime.replace(" ", "T")).getTime() - Date.now()) / 60000) : null;
+  const note = `${stored.inserted} new punch${stored.inserted === 1 ? "" : "es"}, ${info.userCount} user${info.userCount === 1 ? "" : "s"}${drift !== null && Math.abs(drift) > 5 ? ` · machine clock off by ${drift} min` : ""}`;
+  await execute(
+    `UPDATE biometric_devices SET last_sync_at = NOW(), last_sync_status = 'OK', last_sync_note = ?, user_count = ?, log_count = ?, log_capacity = ?,
+       last_seen_at = NOW(), total_punches = total_punches + ?, sync_requested_at = NULL,
+       last_punch_at = GREATEST(COALESCE(last_punch_at, '2000-01-01'), COALESCE((SELECT MAX(punch_time) FROM biometric_logs WHERE device_id = ?), '2000-01-01'))
+     WHERE id = ?`,
+    [note, info.userCount, info.logCount, info.logCapacity, stored.inserted, device.id, device.id],
+  );
+  return {
+    deviceId: device.id,
+    name: device.name,
+    ok: true,
+    info,
+    clockDriftMinutes: drift,
+    users: info.userCount,
+    punchesOnDevice: totalOnDevice,
+    newPunches: stored.inserted,
+    seconds: Math.round(elapsedMs / 1000),
+  };
+}
+
+export async function recordSyncFailure(device: { id: number; name: string }, error: string): Promise<SyncResult> {
+  const message = error.slice(0, 255);
+  await execute("UPDATE biometric_devices SET last_sync_at = NOW(), last_sync_status = 'FAILED', last_sync_note = ?, sync_requested_at = NULL WHERE id = ?", [message, device.id]);
+  return { deviceId: device.id, name: device.name, ok: false, error: message, newPunches: 0 };
+}
+
+/** Agent mode: ask the office agent to sync these machines (or all active ones) on its next check-in. */
+export async function requestAgentSync(deviceIds?: number[]) {
+  const result = deviceIds?.length
+    ? await execute(`UPDATE biometric_devices SET sync_requested_at = NOW() WHERE status = 'approved' AND id IN (${deviceIds.map(() => "?").join(",")})`, deviceIds)
+    : await execute("UPDATE biometric_devices SET sync_requested_at = NOW() WHERE status = 'approved' AND ip_address IS NOT NULL");
+  return result.affectedRows;
+}
+
+/** Latest contact from the office agent(s). */
+export const agentStatus = () =>
+  query<{ name: string; version: string | null; ipAddress: string | null; lastSeenAt: Date; lastError: string | null; online: number }>(
+    `SELECT name, version, ip_address AS ipAddress, last_seen_at AS lastSeenAt, last_error AS lastError,
+            (last_seen_at > NOW() - INTERVAL 3 MINUTE) AS online
+       FROM biometric_agents ORDER BY last_seen_at DESC LIMIT 5`,
+  ).then((rows) => rows.map((row) => ({ ...row, online: Boolean(row.online) })));
 
 /** Sync the given machines (or every active one), auto-link users, and update attendance. */
 export async function syncAndProcess(deviceIds?: number[]) {
@@ -342,6 +373,10 @@ let timer: NodeJS.Timeout | undefined;
 let running = false;
 
 export function startAutoSync() {
+  if (env.BIOMETRIC_MODE === "agent") {
+    logger.info("Fingerprint machines are read by the office agent (BIOMETRIC_MODE=agent)");
+    return;
+  }
   const minutes = env.BIOMETRIC_AUTO_SYNC_MINUTES;
   if (!minutes) {
     logger.info("Automatic machine sync is off (BIOMETRIC_AUTO_SYNC_MINUTES=0)");

@@ -19,6 +19,7 @@ import {
 } from "./middleware/security";
 import { adhocRouter } from "./routes/adhoc";
 import { attendanceRouter } from "./routes/attendance";
+import { agentRouter } from "./routes/agent";
 import { auditRouter } from "./routes/audit";
 import { biometricRouter } from "./routes/biometric";
 import { authRouter } from "./routes/auth";
@@ -32,7 +33,7 @@ import { rosterRouter } from "./routes/roster";
 export function createApp() {
   const app = express();
   app.disable("x-powered-by");
-  app.set("trust proxy", env.TRUST_PROXY ? 1 : false);
+  app.set("trust proxy", env.trustProxy ? 1 : false);
   // Reject ambiguous query strings like ?a=1&a=2 turning into arrays.
   app.set("query parser", "simple");
 
@@ -47,7 +48,7 @@ export function createApp() {
   // 1 MB for normal requests; USB punch-log uploads may be larger.
   const smallJson = express.json({ limit: "1mb", strict: true });
   const largeJson = express.json({ limit: "10mb", strict: true });
-  api.use((req, res, next) => (req.path === "/biometric/import" ? largeJson : smallJson)(req, res, next));
+  api.use((req, res, next) => (req.path === "/biometric/import" || req.path === "/agent/report" ? largeJson : smallJson)(req, res, next));
   api.use(cookieParser());
   api.use(accessLog);
 
@@ -55,6 +56,9 @@ export function createApp() {
     await pool.query("SELECT 1");
     res.json({ ok: true, time: new Date().toISOString() });
   });
+
+  // Office sync agent: authenticated by its own key, never by browser cookies.
+  api.use("/agent", agentRouter);
 
   api.use(loadSession);
   api.use(verifyCsrf);

@@ -195,7 +195,13 @@ export type ShiftSwap = {
   createdAt: string;
 };
 
-export type DeviceSetup = { serverAddresses: string[]; autoSyncMinutes: number; allowList: string };
+export type DeviceSetup = {
+  mode: "direct" | "agent";
+  serverAddresses: string[];
+  autoSyncMinutes: number;
+  allowList: string;
+  agents: { name: string; version: string | null; ipAddress: string | null; lastSeenAt: string; lastError: string | null; online: boolean }[];
+};
 
 export type BiometricDevice = {
   id: number;

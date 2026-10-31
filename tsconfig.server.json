@@ -16,5 +16,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["server", "database", "shared", "tests"]
+  "include": ["server", "database", "shared", "tests", "agent"]
 }

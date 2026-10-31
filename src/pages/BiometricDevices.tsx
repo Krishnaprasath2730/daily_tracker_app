@@ -19,7 +19,6 @@ const EMPTY_FORM: DeviceForm = { name: "", ipAddress: "", port: "4370", commKey:
 
 export default function BiometricDevices() {
   const { isAdmin } = useAuth();
-  const setup = useQuery({ queryKey: ["biometric", "setup"], queryFn: () => api.get<DeviceSetup>("/biometric/setup"), staleTime: 5 * 60_000 });
   const devices = useQuery({ queryKey: ["biometric", "devices"], queryFn: () => api.get<{ items: BiometricDevice[]; totals: DeviceTotals }>("/biometric/devices"), refetchInterval: 60_000 });
   const logs = useQuery({ queryKey: ["biometric", "logs"], queryFn: () => api.get<BiometricLog[]>("/biometric/logs", { limit: 50 }), refetchInterval: 60_000 });
 
@@ -31,7 +30,8 @@ export default function BiometricDevices() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const remove = useApiMutation((id: number) => api.delete(`/biometric/devices/${id}`), { invalidate: ["biometric"], success: "Machine removed (its punches are kept)", errorTitle: "Could not remove machine" });
-  const sync = useApiMutation((id: number | null) => api.post<SyncResult>(id ? `/biometric/devices/${id}/sync` : "/biometric/sync"), {
+  const setup = useQuery({ queryKey: ["biometric", "setup"], queryFn: () => api.get<DeviceSetup>("/biometric/setup"), staleTime: 30_000, refetchInterval: 60_000 });
+  const sync = useApiMutation((id: number | null) => api.post<SyncResult | { queued: number; mode: "agent" }>(id ? `/biometric/devices/${id}/sync` : "/biometric/sync"), {
     invalidate: ["biometric", "attendance", "employees"],
     errorTitle: "Sync failed",
   });
@@ -39,7 +39,11 @@ export default function BiometricDevices() {
   async function runSync(device?: BiometricDevice) {
     setBusy(device ? `sync-${device.id}` : "sync-all");
     sync.mutate(device?.id ?? null, {
-      onSuccess: (result) => setSyncResult(result),
+      onSuccess: (result) => {
+        // Agent mode: the office agent picks up the request on its next check-in (within a minute).
+        if ("queued" in result) toast.success("Sync requested", { description: `The office agent will read ${result.queued === 1 ? "the machine" : `${result.queued} machines`} within about a minute. Refresh to see the result.` });
+        else setSyncResult(result);
+      },
       onError: (error) => {
         // A failed sync still returns per-machine details.
         if (error instanceof ApiError && error.details && typeof error.details === "object" && "devices" in error.details) setSyncResult(error.details as SyncResult);
@@ -82,6 +86,8 @@ export default function BiometricDevices() {
   const active = items.filter((d) => d.isActive);
   const failing = active.filter((d) => d.lastSyncStatus === "FAILED");
   const serverIp = setup.data?.serverAddresses[0];
+  const agentMode = setup.data?.mode === "agent";
+  const agent = setup.data?.agents[0];
 
   return (
     <div>
@@ -100,7 +106,16 @@ export default function BiometricDevices() {
         <Stat label="Active machines" value={active.length} note={failing.length ? `${failing.length} failed last sync` : "All synced OK"} tone={failing.length ? "bad" : "good"} />
         <Stat label="Punches today" value={totals?.punchesToday ?? 0} note={`${totals?.punches ?? 0} stored in total`} tone="neutral" />
         <Stat label="Machine users" value={totals?.users ?? 0} note={totals?.unlinkedUsers ? `${totals.unlinkedUsers} not linked to an employee` : "All linked"} tone={totals?.unlinkedUsers ? "warn" : "good"} />
-        <Stat label="Automatic sync" value={setup.data?.autoSyncMinutes ? `${setup.data.autoSyncMinutes} min` : "Off"} note={setup.data?.autoSyncMinutes ? "New punches are pulled in the background" : "Click Sync to pull punches"} tone="neutral" />
+        {agentMode ? (
+          <Stat
+            label="Office agent"
+            value={agent ? (agent.online ? "Online" : "Offline") : "Not set up"}
+            note={agent ? `${agent.name} · last contact ${formatDateTime(agent.lastSeenAt)}${agent.lastError ? ` · ${agent.lastError}` : ""}` : "Install the agent on an office PC (see How to connect)"}
+            tone={agent?.online ? "good" : "bad"}
+          />
+        ) : (
+          <Stat label="Automatic sync" value={setup.data?.autoSyncMinutes ? `${setup.data.autoSyncMinutes} min` : "Off"} note={setup.data?.autoSyncMinutes ? "New punches are pulled in the background" : "Click Sync to pull punches"} tone="neutral" />
+        )}
       </div>
 
       <Panel className="mb-5">
@@ -146,7 +161,7 @@ export default function BiometricDevices() {
                   <td>
                     <div className="flex justify-end gap-1">
                       <Button size="sm" disabled={!device.isActive || Boolean(busy)} onClick={() => runSync(device)}><RefreshCw className={cn("h-3.5 w-3.5", busy === `sync-${device.id}` && "animate-spin")} />{busy === `sync-${device.id}` ? "Syncing…" : "Sync"}</Button>
-                      <Button size="sm" variant="outline" disabled={Boolean(busy)} onClick={() => runTest(device)}><Zap className="h-3.5 w-3.5" />{busy === `test-${device.id}` ? "Testing…" : "Test"}</Button>
+                      {!agentMode && <Button size="sm" variant="outline" disabled={Boolean(busy)} onClick={() => runTest(device)}><Zap className="h-3.5 w-3.5" />{busy === `test-${device.id}` ? "Testing…" : "Test"}</Button>}
                       {isAdmin && <Button size="icon" variant="ghost" aria-label="Edit machine" onClick={() => setEditing(device)}><Pencil className="h-4 w-4" /></Button>}
                       {isAdmin && (
                         <ConfirmButton title={`Remove ${device.name}?`} description="The machine is removed from this app. Punches already pulled from it are kept. Nothing on the machine itself is changed." confirmLabel="Remove" onConfirm={() => remove.mutate(device.id)}>
@@ -166,7 +181,16 @@ export default function BiometricDevices() {
         <MachineUsers canLink={isAdmin} />
         <aside className="space-y-5">
           <Panel>
-            <PanelHeader title="How to connect" description="One-time setup, about 5 minutes" />
+            <PanelHeader title="How to connect" description={agentMode ? "This app is online, so an office PC reads the machine and sends punches here" : "One-time setup, about 5 minutes"} />
+            {agentMode ? (
+              <ol className="space-y-4 p-5 text-sm leading-6 text-[#475467]">
+                <Step n={1} title="Machine on the office network">On the machine: <b>Menu → Comm. → Ethernet</b> — give it a fixed IP. <b>Comm Key = 0</b> (Menu → Comm. → Security).</Step>
+                <Step n={2} title="Add it here">Click <b>Add machine</b> with that IP and port <b>4370</b>.</Step>
+                <Step n={3} title="Install the office agent">On one office PC that stays on (same network as the machine): install Node.js 20+, copy <span className="font-mono">infinity-agent.mjs</span> and create <span className="font-mono">agent.env</span> with this site's address and the agent key. Run <span className="font-mono">node infinity-agent.mjs</span>.</Step>
+                <Step n={4} title="Check it">The agent shows as <b>online</b> above within a minute and syncs every {setup.data?.autoSyncMinutes ?? 15} minutes. Click <b>Sync</b> to ask it to sync now.</Step>
+                <Step n={5} title="Link staff">Machine users are linked automatically when the ID matches (e.g. 1033 ↔ IS/2026/1033); link the rest under Machine users.</Step>
+              </ol>
+            ) : (
             <ol className="space-y-4 p-5 text-sm leading-6 text-[#475467]">
               <Step n={1} title="Same network">Connect the machine to the office LAN or Wi-Fi — the same network as this computer{serverIp ? <> (<span className="font-mono">{serverIp}</span>)</> : null}.</Step>
               <Step n={2} title="Note the machine's IP">On the machine: <b>Menu → Comm. → Ethernet</b> (or Wireless Network). Turn DHCP off and give it a fixed IP so it never changes.</Step>
@@ -174,6 +198,7 @@ export default function BiometricDevices() {
               <Step n={4} title="Add and test">Click <b>Add machine</b>, enter the IP and port <b>4370</b>, then <b>Test connection</b>. You should see its user and punch counts.</Step>
               <Step n={5} title="Sync and link">Click <b>Sync</b>. Machine users are linked to employees automatically when the ID matches (e.g. 1033 ↔ IS/2026/1033); link the rest by hand. First punch of a day = IN, last = OUT.</Step>
             </ol>
+            )}
             <div className="flex items-start gap-2 border-t border-[#edf0f4] px-5 py-3 text-xs text-[#667085]"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#157347]" />Read-only: the app never clears or edits the machine. Machines can only be added with an office-network IP ({setup.data?.allowList ?? "private LAN"}).</div>
           </Panel>
           <Reprocess />
@@ -199,7 +224,7 @@ export default function BiometricDevices() {
         ) : <EmptyState title="No punches yet" description="Sync a machine or load a USB log file." />}
       </Panel>
 
-      {editing && <DeviceDialog device={editing === "new" ? null : editing} onClose={() => setEditing(null)} />}
+      {editing && <DeviceDialog device={editing === "new" ? null : editing} agentMode={agentMode} onClose={() => setEditing(null)} />}
       <SyncResultDialog result={syncResult} onClose={() => setSyncResult(null)} />
       <ImportResultDialog result={importResult} onClose={() => setImportResult(null)} />
       <Dialog open={Boolean(testResult)} onOpenChange={(open) => !open && setTestResult(null)}>
@@ -252,7 +277,7 @@ function TestInfo({ result }: { result: DeviceTestResult }) {
   );
 }
 
-function DeviceDialog({ device, onClose }: { device: BiometricDevice | null; onClose: () => void }) {
+function DeviceDialog({ device, agentMode, onClose }: { device: BiometricDevice | null; agentMode: boolean; onClose: () => void }) {
   const [form, setForm] = useState<DeviceForm>(
     device ? { name: device.name, ipAddress: device.ipAddress, port: String(device.port), commKey: String(device.commKey), location: device.location ?? "", isActive: device.isActive } : EMPTY_FORM,
   );
@@ -295,7 +320,7 @@ function DeviceDialog({ device, onClose }: { device: BiometricDevice | null; onC
           <label className="flex items-center gap-2 text-sm text-[#475467]"><input type="checkbox" checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />Active (included in “Sync all” and automatic sync)</label>
           {test && <TestInfo result={test} />}
           <div className="flex flex-wrap justify-between gap-2 border-t border-[#edf0f4] pt-4">
-            <Button type="button" variant="outline" disabled={testing || !form.ipAddress.trim()} onClick={testConnection}><Zap className="h-4 w-4" />{testing ? "Testing…" : "Test connection"}</Button>
+            {agentMode ? <span className="self-center text-xs text-[#667085]">The office agent connects after you save.</span> : <Button type="button" variant="outline" disabled={testing || !form.ipAddress.trim()} onClick={testConnection}><Zap className="h-4 w-4" />{testing ? "Testing…" : "Test connection"}</Button>}
             <div className="flex gap-2"><Button type="button" variant="outline" onClick={onClose}>Cancel</Button><Button type="submit" disabled={save.isPending}>{device ? "Save" : "Add machine"}</Button></div>
           </div>
         </form>

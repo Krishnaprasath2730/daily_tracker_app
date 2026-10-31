@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 # Environment variables
 .env
+agent.env
 .env.local
 .env.*.local
 # Database

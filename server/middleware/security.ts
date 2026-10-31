@@ -29,16 +29,24 @@ export const securityHeaders = helmet({
   referrerPolicy: { policy: "strict-origin-when-cross-origin" },
 });
 
-export const corsPolicy = cors({
-  origin(origin, callback) {
-    // Same-origin requests and tools like curl send no Origin header.
-    if (!origin || env.corsOrigins.includes(origin)) return callback(null, true);
-    callback(new HttpError(403, "Origin not allowed"));
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: ["Content-Type", "X-CSRF-Token"],
-  maxAge: 600,
+/** True when the Origin header is this site itself (same scheme-less host, e.g. the Hostinger domain). */
+function isSameOrigin(origin: string, req: Request) {
+  try {
+    const host = req.get("x-forwarded-host") && env.trustProxy ? req.get("x-forwarded-host") : req.get("host");
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
+
+export const corsPolicy = cors((req, callback) => {
+  const request = req as Request;
+  const origin = request.get("origin");
+  // Same-origin requests, the site's own address and tools like curl are fine; other sites must be listed.
+  if (!origin || isSameOrigin(origin, request) || env.corsOrigins.includes(origin)) {
+    return callback(null, { origin: true, credentials: true, methods: ["GET", "POST", "PUT", "PATCH", "DELETE"], allowedHeaders: ["Content-Type", "X-CSRF-Token"], maxAge: 600 });
+  }
+  callback(new HttpError(403, "Origin not allowed"));
 });
 
 const limitHandler = (_req: Request, res: Response) =>

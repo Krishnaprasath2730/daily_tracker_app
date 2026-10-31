@@ -6,6 +6,10 @@ Internal web app for Infinity Solutions support/operations staff: daily producti
 
 ---
 
+## Hosting
+
+To put the app online on Hostinger (Node.js Web App + MySQL + office sync agent for the fingerprint machine), follow **[DEPLOY-HOSTINGER.md](DEPLOY-HOSTINGER.md)**.
+
 ## 1. Requirements
 
 - Node.js 20.19+ (tested on Node 24)

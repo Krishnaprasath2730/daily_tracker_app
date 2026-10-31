@@ -18,7 +18,7 @@ export default defineConfig([
     rules: { "react-refresh/only-export-components": "off", "react-hooks/purity": "off" },
   },
   {
-    files: ["server/**/*.ts", "database/**/*.ts", "shared/**/*.ts", "tests/**/*.ts", "scripts/**/*.ts", "vite.config.ts", "vitest.config.ts"],
+    files: ["server/**/*.ts", "database/**/*.ts", "shared/**/*.ts", "tests/**/*.ts", "agent/**/*.ts", "server.js", "vite.config.ts", "vitest.config.ts"],
     extends: [js.configs.recommended, tseslint.configs.recommended],
     languageOptions: { ecmaVersion: 2022, globals: globals.node },
   },

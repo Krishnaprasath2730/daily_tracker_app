@@ -18,6 +18,20 @@ export const pool = mysql.createPool({
   decimalNumbers: true,
 });
 
+/** "+05:30" style offset of APP_TIMEZONE right now (process.env.TZ is set from it in config/env). */
+export function mysqlTimeZoneOffset(date = new Date()): string {
+  const minutes = -date.getTimezoneOffset();
+  const sign = minutes >= 0 ? "+" : "-";
+  const abs = Math.abs(minutes);
+  return `${sign}${String(Math.floor(abs / 60)).padStart(2, "0")}:${String(abs % 60).padStart(2, "0")}`;
+}
+
+// MySQL's NOW() / CURRENT_TIMESTAMP must use the same clock as the app, even when the
+// database server runs in UTC (common on hosting). Applied to every new pooled connection.
+pool.on("connection", (connection) => {
+  connection.query(`SET time_zone = '${mysqlTimeZoneOffset()}'`);
+});
+
 type Params = (string | number | boolean | Date | null)[];
 type Executor = Pick<PoolConnection, "execute">;
 

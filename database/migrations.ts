@@ -164,6 +164,22 @@ export const MIGRATIONS: Migration[] = [
       if (await tableIsEmpty("device_commands")) await sql("DROP TABLE IF EXISTS device_commands");
     },
   },
+  {
+    id: "2026-10-31-03-office-agent",
+    description: "Office sync agent for cloud hosting (sync requests, agent heartbeat)",
+    up: async ({ sql, addColumn }) => {
+      // Clicking Sync in the web app (cloud) asks the office agent to sync now.
+      await addColumn("biometric_devices", "sync_requested_at", "DATETIME NULL");
+      await sql(`CREATE TABLE IF NOT EXISTS biometric_agents (
+        name          VARCHAR(80)  NOT NULL,
+        version       VARCHAR(20)  NULL,
+        ip_address    VARCHAR(45)  NULL,
+        last_seen_at  DATETIME     NOT NULL,
+        last_error    VARCHAR(255) NULL,
+        PRIMARY KEY (name)
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+    },
+  },
 ];
 
 export const LATEST_MIGRATION = MIGRATIONS[MIGRATIONS.length - 1].id;
