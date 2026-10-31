@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink-900: oklch(0.23 0.035 255);
+    --ink-500: oklch(0.53 0.035 255);
+    --blue-600: oklch(0.52 0.21 259);
+    --paper-0: oklch(0.995 0.002 255);
+    --paper-50: oklch(0.98 0.006 255);
+    --line-soft: oklch(0.92 0.008 255);
+    --surface-page: var(--paper-50);
+    --surface-panel: var(--paper-0);
+    --text-primary: var(--ink-900);
+    --text-secondary: var(--ink-500);
+    --action-primary: var(--blue-600);
+    --background: 220 33% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 216 100% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 32% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 214 32% 96%;
+    --muted-foreground: 220 12% 46%;
+    --accent: 214 100% 97%;
+    --accent-foreground: 216 100% 40%;
+    --destructive: 4 74% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 22% 91%;
+    --input: 214 22% 86%;
+    --ring: 216 100% 45%;
+    --radius: 0.625rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    background: #f6f8fb;
+  }
+
+  body {
+    @apply m-0 bg-background text-foreground antialiased;
+    min-width: 320px;
+    min-height: 100dvh;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 16px;
+  }
+
+  button,
+  a,
+  select,
+  input,
+  textarea {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0064e6] focus-visible:ring-offset-2;
+  }
+
+  button,
+  select {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  select:disabled {
+    cursor: not-allowed;
+  }
+
+  ::selection {
+    background: #d6e8ff;
+    color: #101828;
+  }
+}
+
+@layer components {
+  .form-input {
+    @apply h-11 w-full rounded-lg border border-[#d7dee8] bg-white px-3 text-sm text-[#1d2939] shadow-[0_1px_2px_rgba(16,24,40,0.02)] transition-colors placeholder:text-[#98a2b3] hover:border-[#b8c3d1] focus:border-[#0064e6];
+  }
+
+  textarea.form-input {
+    @apply h-auto min-h-24 py-2.5 leading-6;
+  }
+
+  .font-condensed {
+    font-family: "IBM Plex Sans Condensed", "IBM Plex Sans", sans-serif;
+  }
+
+  .data-table {
+    @apply w-full border-collapse text-left text-[13px];
+  }
+
+  .data-table th {
+    @apply h-11 whitespace-nowrap border-b border-[#e4e9f0] bg-[#f8fafc] px-4 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-[#667085];
+  }
+
+  .data-table td {
+    @apply border-b border-[#edf0f4] px-4 py-3.5 align-middle text-[#475467];
+  }
+
+  .data-table tbody tr {
+    @apply transition-colors hover:bg-[#f8fbff];
+  }
+
+  .data-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+}
+
+.font-mono {
+  font-family: "IBM Plex Mono", monospace;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,1311 @@
+{
+  "employees": [
+    {
+      "name": "SURYA PRAKASH G",
+      "employeeId": "IS/2026/1033",
+      "team": "Support"
+    },
+    {
+      "name": "SUGANTHI R",
+      "employeeId": "IS/2026/1083",
+      "team": "Support"
+    },
+    {
+      "name": "JENIFER JEYASHRI",
+      "employeeId": "IS/2026/1090",
+      "team": "Support"
+    },
+    {
+      "name": "RAMASAMY P",
+      "employeeId": "IS/2026/1097",
+      "team": "Support"
+    },
+    {
+      "name": "DHIVYA D",
+      "employeeId": "IS/2026/1094",
+      "team": "Support"
+    },
+    {
+      "name": "MOHAMED SALMAN T",
+      "employeeId": "IS/2026/1035",
+      "team": "Support"
+    },
+    {
+      "name": "PANDIYARASU P",
+      "employeeId": "IS/2026/1021",
+      "team": "Support"
+    },
+    {
+      "name": "DEVI K",
+      "employeeId": "FRESHER-01",
+      "team": "Support"
+    },
+    {
+      "name": "BANU PRIYA",
+      "employeeId": "FRESHER-02",
+      "team": "Support"
+    },
+    {
+      "name": "ARUN KUMAR B",
+      "employeeId": "FRESHER-03",
+      "team": "Support"
+    }
+  ],
+  "roster": [
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1C"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1C"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1C"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1C"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1033",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "C"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1083",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "C"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "C"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1090",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "C"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1097",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "C"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "AL"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1094",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "1B"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1035",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-01",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-02",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-03",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-04",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-05",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "IS/2026/1021",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-06",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-07",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-08",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-09",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-10",
+      "shiftCode": "E"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-11",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "B"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "AL"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1D"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1D"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1D"
+    },
+    {
+      "employeeCode": "FRESHER-01",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-12",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-13",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-14",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "C"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-02",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "2"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-15",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-16",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-17",
+      "shiftCode": "A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-18",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-19",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-20",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-21",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-22",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-23",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-24",
+      "shiftCode": "WO"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-25",
+      "shiftCode": "B"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-26",
+      "shiftCode": "1A"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-27",
+      "shiftCode": "1D"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-28",
+      "shiftCode": "1D"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-29",
+      "shiftCode": "1D"
+    },
+    {
+      "employeeCode": "FRESHER-03",
+      "dutyDate": "2026-10-30",
+      "shiftCode": "1D"
+    }
+  ]
+}
