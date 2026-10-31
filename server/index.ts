@@ -1,4 +1,4 @@
-import { env } from "./config/env";
+import { env, settingsFile } from "./config/env";
 import mysql from "mysql2/promise";
 import { LATEST_MIGRATION } from "../database/migrations";
 import { prepareDatabase } from "../database/prepare";
@@ -9,6 +9,7 @@ import { startAutoSync, stopAutoSync } from "./services/biometric";
 import { logger } from "./utils/logger";
 
 async function main() {
+  logger.info(`Settings: environment variables${settingsFile ? ` + ${settingsFile}` : ""} (cwd ${process.cwd()})`);
   try {
     await pool.query("SELECT 1");
   } catch (error) {

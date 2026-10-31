@@ -10,8 +10,18 @@ import { z } from "zod";
 //   3. ~/.infinity-ops.env in the account's home folder — survives Hostinger redeploys,
 //      which replace the app folder each time (override with INFINITY_ENV_FILE)
 loadEnvFile({ quiet: true });
-const homeEnvFile = process.env.INFINITY_ENV_FILE || path.join(os.homedir(), ".infinity-ops.env");
-if (existsSync(homeEnvFile)) loadEnvFile({ path: homeEnvFile, quiet: true });
+// The hosting front-end (Passenger / CageFS) may start the app with a different HOME, so also
+// derive the account folder from the app's own path: /home/<user>/domains/<site>/... → /home/<user>.
+const accountFolder = (dir: string) => (dir.includes(`${path.sep}domains${path.sep}`) ? dir.slice(0, dir.indexOf(`${path.sep}domains${path.sep}`)) : "");
+const settingsCandidates = [
+  process.env.INFINITY_ENV_FILE ?? "",
+  path.join(os.homedir(), ".infinity-ops.env"),
+  accountFolder(process.cwd()) && path.join(accountFolder(process.cwd()), ".infinity-ops.env"),
+  accountFolder(path.dirname(process.argv[1] ?? "")) && path.join(accountFolder(path.dirname(process.argv[1] ?? "")), ".infinity-ops.env"),
+].filter(Boolean);
+/** The settings file that was loaded, if any (path only — logged at start-up). */
+export const settingsFile = settingsCandidates.find((file) => existsSync(file)) ?? null;
+if (settingsFile) loadEnvFile({ path: settingsFile, quiet: true });
 
 const bool = z
   .enum(["true", "false", "1", "0"])
