@@ -22,4 +22,9 @@ export default defineConfig([
     extends: [js.configs.recommended, tseslint.configs.recommended],
     languageOptions: { ecmaVersion: 2022, globals: globals.node },
   },
+  {
+    files: ["server.cjs"],
+    extends: [js.configs.recommended],
+    languageOptions: { ecmaVersion: 2022, sourceType: "commonjs", globals: globals.node },
+  },
 ]);

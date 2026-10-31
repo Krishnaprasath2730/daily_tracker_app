@@ -8,7 +8,9 @@ const optionalBool = z.preprocess((value) => (value === "" ? undefined : value),
 
 const schema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-  PORT: z.coerce.number().int().min(1).max(65535).default(4000),
+  // Hosting front-ends (LiteSpeed, Passenger) may pass a socket name here and take over listen();
+  // anything that is not a port number falls back to the default.
+  PORT: z.preprocess((value) => (typeof value === "string" && /^\d{1,5}$/.test(value) ? Number(value) : undefined), z.number().int().min(1).max(65535).default(4000)),
   // Defaults to 127.0.0.1 in development and 0.0.0.0 in production (hosting platforms proxy to the app).
   HOST: z.string().optional(),
   // All dates and times (shifts, late/early, "today") use this time zone, whatever the server's own clock says.
@@ -66,19 +68,24 @@ const schema = z.object({
   LOGIN_LOCK_MINUTES: z.coerce.number().int().min(1).max(24 * 60).default(15),
 });
 
+/** A setting problem. The message names variables but never contains their values. */
+export class ConfigError extends Error {
+  constructor(public readonly problems: string[]) {
+    super(`Invalid environment configuration:\n  ${problems.join("\n  ")}`);
+    this.name = "ConfigError";
+  }
+}
+
 const parsed = schema.safeParse(process.env);
 if (!parsed.success) {
-  console.error("Invalid environment configuration:");
-  for (const issue of parsed.error.issues) console.error(`  ${issue.path.join(".")}: ${issue.message}`);
-  process.exit(1);
+  throw new ConfigError(parsed.error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`));
 }
 
 const raw = parsed.data;
 const production = raw.NODE_ENV === "production";
 
 if (raw.BIOMETRIC_MODE === "agent" && raw.BIOMETRIC_AGENT_KEY.length < 32) {
-  console.error("BIOMETRIC_MODE=agent needs BIOMETRIC_AGENT_KEY with at least 32 characters (generate one with: npm run agent:key)");
-  process.exit(1);
+  throw new ConfigError(["BIOMETRIC_AGENT_KEY: needs at least 32 characters when BIOMETRIC_MODE=agent (generate one with: npm run agent:key)"]);
 }
 
 // Must happen before any Date is created: Node reads TZ when it is set.

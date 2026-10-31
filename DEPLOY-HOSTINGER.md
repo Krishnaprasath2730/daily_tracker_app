@@ -42,11 +42,11 @@ Copy the printed value. It goes into Hostinger (step 3) **and** the office agent
    | Setting | Value |
    |---|---|
    | Framework / preset | Express (or Other) |
-   | Node.js version | 20.x or 22.x |
+   | Node.js version | **22.x** (or 20.x) |
    | Root directory | `./` |
    | Package manager | npm |
    | Build command | `npm run build` |
-   | Entry file / start file | `server.js` |
+   | Entry file / start file | **`server.cjs`** |
 
 3. **Environment variables** (add each one):
 
@@ -68,15 +68,18 @@ Copy the printed value. It goes into Hostinger (step 3) **and** the office agent
 
    Do not set `PORT` — Hostinger provides it. HTTPS cookies and proxy settings switch on automatically in production.
 
-4. **Deploy.** Hostinger runs `npm install`, `npm run build`, then starts `server.js`.
+4. **Deploy.** Hostinger runs `npm install`, `npm run build`, then starts `server.cjs`.
    Open the temporary domain (e.g. `https://xxxx.hostingersite.com`).
 
 5. Sign in as **ADMIN** with `SEED_ADMIN_PASSWORD`; you must choose a new password.
    Staff sign in with their employee ID and `SEED_STAFF_PASSWORD` and also set their own.
    After this first start you can delete `SEED_ADMIN_PASSWORD` / `SEED_STAFF_PASSWORD` from the environment variables.
 
-If the site shows an error, open the app's **Logs** in hPanel. Lines starting with `[db]` show the database setup.
-`Cannot connect to MySQL` → check `DB_HOST` / user / password (try the host name shown in hPanel instead of `localhost`).
+### If the site does not open
+
+- **"Infinity Operations could not start"** page: it names the problem (missing setting, database login, database host, build). Fix it in Environment variables and restart / redeploy.
+- **"503 Service Unavailable — The server is temporarily busy"** (LiteSpeed): the app process did not start at all. Check that the entry file is `server.cjs` (not `server.js`), the Node version is 20.19+ / 22, and the build command is `npm run build`, then redeploy. The app logs in hPanel show the exact error.
+- Lines starting with `[db]` in the logs show the database setup.
 
 ## 4. Add the machine in the app
 

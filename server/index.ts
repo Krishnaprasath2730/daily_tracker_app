@@ -12,13 +12,16 @@ async function main() {
   try {
     await pool.query("SELECT 1");
   } catch (error) {
-    logger.error("Cannot connect to MySQL. Is XAMPP MySQL running and is .env correct? Run `npm run db:setup` first.", {
+    logger.error("Cannot connect to MySQL. Check DB_HOST, DB_PORT, DB_USER, DB_PASSWORD and DB_NAME (locally: is XAMPP MySQL running?).", {
       host: env.DB_HOST,
       port: env.DB_PORT,
       database: env.DB_NAME,
       error: (error as Error).message,
     });
-    process.exit(1);
+    await pool.end().catch(() => undefined);
+    throw Object.assign(new Error(`Cannot connect to MySQL: ${(error as { code?: string }).code ?? (error as Error).message}`), {
+      code: (error as { code?: string }).code ?? "DB_CONNECT",
+    });
   }
 
   // On hosting without a terminal (Hostinger), create/upgrade tables and the first accounts here.
@@ -90,4 +93,13 @@ async function main() {
 
 process.on("unhandledRejection", (reason) => logger.error("unhandled rejection", { error: String(reason) }));
 
-main();
+/**
+ * Resolves once the server is listening. The production entry (server.cjs) waits on this and,
+ * if start-up fails, serves a short "could not start" page instead of a blank 503.
+ * Run directly (npm run dev), a failed start exits as before.
+ */
+export const started = main().catch((error: Error) => {
+  if (process.env.INFINITY_ENTRY) throw error;
+  logger.error("start-up failed", { error: error.message });
+  process.exit(1);
+});

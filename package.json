@@ -16,7 +16,7 @@
     "build": "vite build && npm run build:server",
     "build:server": "esbuild server/index.ts --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=dist/server/index.js && node -e \"for (const f of ['schema.sql','seed-data.json']) require('fs').copyFileSync('database/'+f,'dist/server/'+f)\"",
     "build:agent": "esbuild agent/agent.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist/agent/infinity-agent.mjs --banner:js=\"import { createRequire } from 'module';const require = createRequire(import.meta.url);\" && node -e \"require('fs').copyFileSync('agent/agent.env.example','dist/agent/agent.env.example')\"",
-    "start": "node server.js",
+    "start": "node server.cjs",
     "agent": "tsx agent/agent.ts",
     "agent:key": "node -e \"console.log(require('crypto').randomBytes(36).toString('base64url'))\"",
     "check": "tsc -b",
