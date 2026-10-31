@@ -1,5 +1,17 @@
-import "dotenv/config";
+import { existsSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { config as loadEnvFile } from "dotenv";
 import { z } from "zod";
+
+// Settings sources, first match wins per variable:
+//   1. real environment variables (hPanel / shell)
+//   2. .env in the app folder (local development)
+//   3. ~/.infinity-ops.env in the account's home folder — survives Hostinger redeploys,
+//      which replace the app folder each time (override with INFINITY_ENV_FILE)
+loadEnvFile({ quiet: true });
+const homeEnvFile = process.env.INFINITY_ENV_FILE || path.join(os.homedir(), ".infinity-ops.env");
+if (existsSync(homeEnvFile)) loadEnvFile({ path: homeEnvFile, quiet: true });
 
 const bool = z
   .enum(["true", "false", "1", "0"])
